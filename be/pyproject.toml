@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "ai-core-be"
+version = "0.1.0"
+description = ""
+authors = ["Michal Záň <michal.zan@vacuumlabs.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12"
+python-dotenv = "^1.0.1"
+fastapi = "^0.111.0"
+langchain-core = "^0.2.8"
+redis = "^5.0.6"
+langchain-openai = "^0.1.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
