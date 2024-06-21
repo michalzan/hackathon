@@ -78,7 +78,8 @@ export const Chat: React.FC = () => {
                         color="primary"
                         variant="query"
                         />}
-                    {result !== "" && <ReactMarkdown>{result}</ReactMarkdown>}
+                    {result !== "" && 
+                    <ReactMarkdown>{result}</ReactMarkdown>}
                 </Box>
             )}
         </Box>
