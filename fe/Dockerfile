@@ -1,9 +1,8 @@
 FROM node:18-alpine
 
 WORKDIR /app/
-COPY public/ /app/public
-COPY src/ /app/src
-COPY package.json /app/
+ENV PATH /app/node_modules/.bin:$PATH
+COPY . ./
 
 RUN yarn install
 
