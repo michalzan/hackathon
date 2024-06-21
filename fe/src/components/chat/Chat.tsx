@@ -6,6 +6,7 @@ import { ChatBox, ReceiverMessage, SenderMessage } from "mui-chat-box"
 import ChatInput from "./ChatInput"
 import { fetchRequest } from "../../utils/fetchAPI"
 import { IntroForm } from "./IntroForm"
+import ReactMarkdown from "react-markdown"
 
 interface ChatMessage {
     content: string
@@ -19,6 +20,7 @@ export const Chat: React.FC = () => {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [conversationIdState, setConversationId] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+    const [result, setResult] = useState("")
 
     useEffect(() => {
         init()
@@ -61,7 +63,7 @@ export const Chat: React.FC = () => {
         setIsLoading(true)
         let response = await fetchRequest<ChatMessage>({path: "/message", method: "POST", body: message_object})
         setIsLoading(false)
-        console.log(response)
+        setResult(response.content)
     }
 
     return (
@@ -71,31 +73,12 @@ export const Chat: React.FC = () => {
                 <Box sx={styles.chat}>
                     {/* <YesNoQuestion question="Do you know what car do you want?" answers={["yes", "no"]} />
                     <SliderQuestion question="What is your expected budget?" minValue={0} maxValue={1000000} /> */}
-                    {/* <Box sx={{ flex: 1, overflowY: 'auto' }}>
-                        <ChatBox>
-                        {messages.map((m, i) =>
-                            m.messageType === "ai" ? (
-                                    <ReceiverMessage key={i} avatar={null}>
-                                        {m.content}
-                                    </ReceiverMessage>
-                                ) : (
-                                    <SenderMessage key={i} avatar={null}>
-                                        {m.content}
-                                    </SenderMessage>
-                                )
-                            )}
-                        </ChatBox>
-                    </Box>
-                    {isLoading && <LinearProgress
-                        color="primary"
-                        variant="query"
-                        />}
-                    <ChatInput onSubmit={handleSendMessage} /> */}
                     <IntroForm submit={formSubmit}/>
                     {isLoading && <LinearProgress
                         color="primary"
                         variant="query"
                         />}
+                    {result !== "" && <ReactMarkdown>{result}</ReactMarkdown>}
                 </Box>
             )}
         </Box>

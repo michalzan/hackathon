@@ -52,7 +52,14 @@ redis = Redis(host=os.environ.get("REDIS_HOST", "localhost"), port=os.environ.ge
 
 PROMPT_TEMPLATE = ChatPromptTemplate.from_messages(
     [
-        ("system", str(os.environ.get("SYSTEM_PROMPT"))),
+        ("system",
+         """Si expert na autá a tvojou úlohou je pomôcť zákazníkovy s výberom pri kúpe auta na Slovensku.
+Zákazník ti v prvej správe pošle sadu otázok a odpovedí, ktorá ti pomôže navrhnúť mu tri autá.
+Ak zákazník nemá predstavu o značke, v troch ponúknutých modeloch
+by malo byť jedno Volvo, jeden Ford a jeden model od iného výrobcu, ktorý najlepšie
+splňuje kritériá vyplývajúce z odpovedí, ktoré ti zákazník poslal.
+Ku každému odporučenému modelu uveď cenu v eurách a mesačnú splátku v eurách pri 20% akontácii, 5% úrokovou mierou a dĺžkou splácania 48 mesiacov."""
+         ),
         MessagesPlaceholder(variable_name="messages")
     ]
 )

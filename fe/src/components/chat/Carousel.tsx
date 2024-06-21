@@ -14,6 +14,7 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ images, showImages, onSubmit, disabled }) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [isDisabled, setDisabled] = useState(false)
 
   useEffect(() => {
     if (!showImages) {
@@ -36,11 +37,14 @@ const Carousel: React.FC<CarouselProps> = ({ images, showImages, onSubmit, disab
   };
 
   const handleSubmit = () => {
-    if (selectedIndex !== null) {
-      onSubmit(selectedIndex);
-    } else {
-        onSubmit(-1)
+    if (!isDisabled) {
+        if (selectedIndex !== null) {
+          onSubmit(selectedIndex);
+        } else {
+            onSubmit(-1)
+        }
     }
+    setDisabled(true)
   };
 
   return (
@@ -97,7 +101,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, showImages, onSubmit, disab
         <CustomButton
             onClick={handleSubmit}
             style={{ marginTop: '10px' }}
-            disabled={disabled}
+            disabled={isDisabled}
         >
             Potvrdiť
         </CustomButton>
